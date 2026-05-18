@@ -1,0 +1,78 @@
+# Extractor catalogue for FDR6 / MIND.
+# Per-extractor model name, input size, feat dim, pool, and normalization
+# constant. Constants and 6-extractor zoo from FD-loss:
+# https://github.com/Jiawei-Yang/FD-loss
+
+extractors:
+  inception:
+    backend: torch_fidelity
+    model: inception-v3-compat
+    input_size: 299
+    feat_dim: 2048
+    pool: pool_2048
+    norm_const: 1.68
+    default_reference: guided_diffusion_stats
+
+  convnext:
+    backend: timm
+    model: convnextv2_base.fcmae_ft_in22k_in1k
+    input_size: 224
+    feat_dim: 1024
+    pool: spatial_mean
+    norm_const: 56.87
+    default_reference: convnext_in256_t224_stats
+
+  dinov2_cls:
+    backend: timm
+    model: vit_large_patch14_dinov2.lvd142m
+    input_size: 256
+    feat_dim: 1024
+    pool: cls
+    norm_const: 14.19
+    default_reference: vit_large_patch14_dinov2_lvd142m_in256_t256_stats
+
+  mae_cls:
+    backend: timm
+    model: vit_large_patch16_224.mae
+    input_size: 224
+    feat_dim: 1024
+    pool: cls
+    norm_const: 0.04
+    default_reference: vit_large_patch16_224_mae_in256_t224_stats
+
+  siglip_cls:
+    backend: timm
+    model: vit_so400m_patch16_siglip_256.v2_webli
+    input_size: 224
+    feat_dim: 1152
+    pool: attn_pool
+    norm_const: 0.60
+    default_reference: vit_so400m_patch16_siglip_256_v2_webli_in256_t224_stats
+
+  clip_cls:
+    backend: timm
+    model: vit_large_patch14_clip_224.openai
+    input_size: 256
+    feat_dim: 1024
+    pool: cls
+    norm_const: 5.60
+    default_reference: vit_large_patch14_clip_224_openai_in256_t256_stats
+
+bundles:
+  fdr6: [inception, convnext, dinov2_cls, mae_cls, siglip_cls, clip_cls]
+  mind6: [inception, convnext, dinov2_cls, mae_cls, siglip_cls, clip_cls]
+
+references:
+  # imagenet_256_fid_stats: directly obtained from these two repos:
+  #   https://github.com/LTH14/JiT
+  #   https://github.com/Lyy-iiis/imeanflow
+  imagenet_256_fid_stats: imagenet_256_fid_stats.npz
+  guided_diffusion_stats: guided_diffusion_stats.npz
+  convnext_in256_t224_stats: convnext_in256_t224_stats.npz
+  vit_large_patch14_dinov2_lvd142m_in256_t256_stats: vit_large_patch14_dinov2_lvd142m_in256_t256_stats.npz
+  vit_large_patch16_224_mae_in256_t224_stats: vit_large_patch16_224_mae_in256_t224_stats.npz
+  vit_so400m_patch16_siglip_256_v2_webli_in256_t224_stats: vit_so400m_patch16_siglip_256_v2_webli_in256_t224_stats.npz
+  vit_large_patch14_clip_224_openai_in256_t256_stats: vit_large_patch14_clip_224_openai_in256_t256_stats.npz
+
+hf_repo_id: nanovisionx/nanogen-evals-stats
+hf_repo_type: dataset

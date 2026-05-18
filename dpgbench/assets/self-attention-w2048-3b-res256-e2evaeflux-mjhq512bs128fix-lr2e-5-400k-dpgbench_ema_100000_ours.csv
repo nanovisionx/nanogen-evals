@@ -1,0 +1,20 @@
+category,level,score
+Overall,mean,0.6794078863618739
+entity,L1,0.7768994999193418
+attribute,L1,0.7850597609561752
+other,L1,0.548
+relation,L1,0.8476667952178943
+global,L1,0.8054711246200608
+entity - whole,L2,0.7909282700421941
+attribute - color,L2,0.7882589061716005
+attribute - shape,L2,0.7030567685589519
+attribute - texture,L2,0.808832425892317
+other - count,L2,0.5
+relation - spatial,L2,0.8492193919474117
+entity - state,L2,0.7265047518479408
+global -,L2,0.8054711246200608
+attribute - size,L2,0.6611570247933884
+attribute - other,L2,0.7884828349944629
+relation - non-spatial,L2,0.8238993710691824
+entity - part,L2,0.740234375
+other - text,L2,0.74
