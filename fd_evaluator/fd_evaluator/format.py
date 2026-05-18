@@ -4,15 +4,19 @@ from __future__ import annotations
 
 
 def format_results(results: dict[str, float]) -> str:
-    """Group flat metric dict into FID, FDr, MIND sections."""
+    """Group flat metric dict into one section per top-level metric.
+
+    Standalone metrics (fid, inception_score) get their own section. Bundles
+    (FDr6, MIND6) group the per-extractor components together since they
+    together compute the aggregate.
+    """
     sections: list[tuple[str, list[tuple[str, float]]]] = []
 
-    fid_rows = []
-    for k in ("fid", "inception_score"):
-        if k in results:
-            fid_rows.append((k, results[k]))
-    if fid_rows:
-        sections.append(("FID / Inception Score", fid_rows))
+    if "fid" in results:
+        sections.append(("FID", [("fid", results["fid"])]))
+
+    if "inception_score" in results:
+        sections.append(("Inception Score", [("inception_score", results["inception_score"])]))
 
     fdr_keys = sorted(k for k in results if k.startswith("fdr_"))
     fdr_rows = [(k, results[k]) for k in fdr_keys]
