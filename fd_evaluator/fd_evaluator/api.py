@@ -116,7 +116,6 @@ def compute_metrics(
             if need_fdr_branch:
                 mu_ref, sig_ref = load_moments(spec.default_reference)
                 fd = frechet_distance(gen_mu, gen_sigma, mu_ref, sig_ref)
-                results[f"fd_{ext_name}"] = fd
                 if spec.norm_const > 0:
                     results[f"fdr_{ext_name}"] = fd / spec.norm_const
 

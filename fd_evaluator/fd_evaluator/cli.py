@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 
 from .api import compute_metrics
+from .format import format_results
 
 _DEFAULT_REF_IMAGES = "./data/imagenet/imagenet-256-val.npz"
 _DEFAULT_CACHE_DIR = str(Path.home() / ".cache" / "nanogen-evals" / "features")
@@ -68,9 +69,8 @@ def main(argv: list[str] | None = None) -> int:
         reference_feature_cache_key="imagenet256_val",
     )
 
-    print("\n[fdeval] === results ===")
-    for k in sorted(results):
-        print(f"  {k:24s} {results[k]:.6f}")
+    print()
+    print(format_results(results))
 
     if args.out:
         os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
